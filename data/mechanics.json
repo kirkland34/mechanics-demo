@@ -1,0 +1,67 @@
+[
+  {
+    "id": "rp-auto-1",
+    "name": "Roselle Park Auto Pros",
+    "rating": 4.8,
+    "reviews": 187,
+    "services": ["Brakes", "Oil Change", "Diagnostics", "AC Repair"],
+    "price_level": "$$",
+    "distance_km": 0.6,
+    "city": "Roselle Park, NJ",
+    "address": "120 Chestnut St, Roselle Park, NJ",
+    "hours": "Mon–Sat 8am–6pm",
+    "phone": "(908) 555-0142"
+  },
+  {
+    "id": "rp-trans-2",
+    "name": "Union Transmission & Auto",
+    "rating": 4.7,
+    "reviews": 142,
+    "services": ["Transmission", "Clutch", "Diagnostics"],
+    "price_level": "$$$",
+    "distance_km": 2.4,
+    "city": "Union, NJ",
+    "address": "310 Morris Ave, Union, NJ",
+    "hours": "Mon–Fri 8am–5:30pm",
+    "phone": "(908) 555-0177"
+  },
+  {
+    "id": "rp-quick-3",
+    "name": "QuickLube & Tires",
+    "rating": 4.4,
+    "reviews": 96,
+    "services": ["Oil Change", "Tires", "Batteries"],
+    "price_level": "$",
+    "distance_km": 1.1,
+    "city": "Roselle Park, NJ",
+    "address": "25 Westfield Ave, Roselle Park, NJ",
+    "hours": "Daily 9am–6pm",
+    "phone": "(908) 555-0193"
+  },
+  {
+    "id": "rp-elite-4",
+    "name": "Elite Euro Motors",
+    "rating": 4.9,
+    "reviews": 78,
+    "services": ["Diagnostics", "AC Repair", "Electrical"],
+    "price_level": "$$$",
+    "distance_km": 3.2,
+    "city": "Cranford, NJ",
+    "address": "14 North Ave, Cranford, NJ",
+    "hours": "Mon–Sat 9am–6pm",
+    "phone": "(908) 555-0112"
+  },
+  {
+    "id": "rp-family-5",
+    "name": "Family Auto Care",
+    "rating": 4.6,
+    "reviews": 121,
+    "services": ["Brakes", "Tires", "Oil Change"],
+    "price_level": "$$",
+    "distance_km": 2.0,
+    "city": "Elizabeth, NJ",
+    "address": "200 Broad St, Elizabeth, NJ",
+    "hours": "Mon–Fri 8am–6pm",
+    "phone": "(908) 555-0180"
+  }
+]
