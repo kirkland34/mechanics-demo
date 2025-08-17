@@ -1,4 +1,8 @@
 "use client";
+
+export const dynamic = "force-dynamic";        // ⬅️ prevent build-time prerender
+export const fetchCache = "force-no-store";    // ⬅️ make sure nothing is cached at build
+
 import { useSearchParams, useRouter } from "next/navigation";
 import mechanics from "../../data/mechanics.json";
 import { useMemo, useState } from "react";
