@@ -1,7 +1,18 @@
+import { NextResponse } from "next/server";
+
 export const runtime = "nodejs";
+
 export async function GET() {
   const hasKey = !!process.env.RESEND_API_KEY;
-  return new Response(JSON.stringify({ hasKey }), {
-    headers: { "content-type": "application/json" }
+  const hasFrom = !!process.env.MAIL_FROM;
+  const owners = (process.env.OWNER_EMAILS || "")
+    .split(",")
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  return NextResponse.json({
+    hasKey,
+    hasFrom,
+    ownersCount: owners.length,
   });
 }
