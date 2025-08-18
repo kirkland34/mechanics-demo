@@ -5,6 +5,14 @@ export const runtime = "nodejs";              // <— ensures Node.js serverless
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const fetchCache = "force-no-store";
+// Debug: confirm the book route can see the env var
+console.log("BOOK ROUTE hasKey:", !!process.env.RESEND_API_KEY);
+
+export async function GET() {
+  return new Response(JSON.stringify({ hasKey: !!process.env.RESEND_API_KEY }), {
+    headers: { "content-type": "application/json" }
+  });
+}
 
 export async function POST(req: Request) {
   try {
