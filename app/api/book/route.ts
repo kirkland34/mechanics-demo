@@ -1,19 +1,26 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
+export const runtime = "nodejs";              // ✅ required so we can read env vars
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const fetchCache = "force-no-store";
 
 export async function POST(req: Request) {
   try {
+    const key = process.env.RESEND_API_KEY;
+    if (!key) {
+      console.error("RESEND_API_KEY missing");
+      return NextResponse.json({ ok: false, error: "Server missing RESEND_API_KEY" }, { status: 500 });
+    }
+
     const body = await req.json();
     const { name, email, phone, vehicle, issue, date, mechanicId, mechanicName } = body || {};
     if (!name || !email || !phone) {
       return NextResponse.json({ ok: false, error: "Missing required fields" }, { status: 400 });
     }
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    const resend = new Resend(key);
 
     const html = `
       <h2>New Booking Request</h2>
