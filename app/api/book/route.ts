@@ -1,24 +1,25 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-export const runtime = "nodejs";              // <— ensures Node.js serverless runtime
+export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const fetchCache = "force-no-store";
-// Debug: confirm the book route can see the env var
-console.log("BOOK ROUTE hasKey:", !!process.env.RESEND_API_KEY);
+
+// Read the key once at module load (more reliable across invocations)
+const RESEND_KEY = process.env.RESEND_API_KEY;
+console.log("BOOK ROUTE boot: hasKey=", !!RESEND_KEY, "runtime=", process.env.NEXT_RUNTIME);
 
 export async function GET() {
-  return new Response(JSON.stringify({ hasKey: !!process.env.RESEND_API_KEY }), {
+  return new Response(JSON.stringify({ hasKey: !!RESEND_KEY }), {
     headers: { "content-type": "application/json" }
   });
 }
 
 export async function POST(req: Request) {
   try {
-    const key = process.env.RESEND_API_KEY;
-    if (!key) {
-      console.error("RESEND_API_KEY missing");
+    if (!RESEND_KEY) {
+      console.error("RESEND_API_KEY missing at POST");
       return NextResponse.json({ ok: false, error: "Server missing RESEND_API_KEY" }, { status: 500 });
     }
 
@@ -28,7 +29,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: "Missing required fields" }, { status: 400 });
     }
 
-    const resend = new Resend(key);
+    const resend = new Resend(RESEND_KEY);
 
     const html = `
       <h2>New Booking Request</h2>
