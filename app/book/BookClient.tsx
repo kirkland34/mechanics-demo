@@ -13,10 +13,31 @@ export default function BookClient() {
 
   const [form, setForm] = useState({ name: "", email: "", phone: "", vehicle: "", issue: "", date: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const update = (k: string, v: string) => setForm(prev => ({...prev, [k]: v}));
+  const update = (k: string, v: string) => setForm(prev => ({ ...prev, [k]: v }));
 
-  const submit = () => { setSubmitted(true); };
+  const submit = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/book", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, mechanicId: id, mechanicName: m?.name })
+      });
+      if (!res.ok) {
+        const j = await res.json().catch(() => ({}));
+        alert(`Error: ${j.error || res.statusText}`);
+        setLoading(false);
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      alert("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (submitted) {
     return (
@@ -47,7 +68,9 @@ export default function BookClient() {
           <input className="input" placeholder="Preferred date" value={form.date} onChange={e => update("date", e.target.value)} />
           <textarea className="input md:col-span-2" placeholder="Describe the issue (e.g., brake noise, AC not cooling)" value={form.issue} onChange={e => update("issue", e.target.value)} />
         </div>
-        <button onClick={submit} className="btn mt-6 w-full">Submit request</button>
+        <button onClick={submit} className="btn mt-6 w-full" disabled={loading}>
+          {loading ? "Sending..." : "Submit request"}
+        </button>
       </div>
     </div>
   );
